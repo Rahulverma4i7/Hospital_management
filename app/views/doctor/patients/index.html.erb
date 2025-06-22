@@ -1,0 +1,83 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-4">Patient Records</h1>
+      
+      <!-- Chart Section -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5>Patient Registration Trends (Last 30 Days)</h5>
+        </div>
+        <div class="card-body">
+          <% if @registration_data.values.sum.positive? %>
+            <div class="chart-container" style="height: 400px;">
+              <%= line_chart @registration_data,
+                    colors: ["#4e73df"],
+                    library: {
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                          ticks: {
+                            precision: 0,
+                            stepSize: 1
+                          }
+                        }
+                      }
+                    } %>
+            </div>
+          <% else %>
+            <div class="alert alert-info">
+              No registration data available yet.
+              <% if Rails.env.development? %>
+                <%= button_to "Generate Sample Data",
+                      create_sample_data_doctor_patients_path,
+                      method: :post,
+                      class: "btn btn-sm btn-outline-primary mt-2" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Patients Table -->
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5>All Patients</h5>
+          <span class="badge bg-primary">
+            <%= @patients.count %> total
+          </span>
+        </div>
+        
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Registered</th>
+                  <th>Gender</th>
+                  <th>Age</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @patients.each do |patient| %>
+                  <tr>
+                    <td><%= patient.full_name %></td>
+                    <td><%= patient.created_at.strftime("%b %d, %Y") %></td>
+                    <td><%= patient.gender %></td>
+                    <td><%= age_from_dob(patient.dob) %></td>
+                    <td>
+                      <%= link_to 'View', doctor_patient_path(patient), 
+                          class: 'btn btn-sm btn-outline-primary' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

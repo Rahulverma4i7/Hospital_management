@@ -1,0 +1,12 @@
+<% content_for :title, "Editing patient" %>
+
+<h1>Editing patient</h1>
+
+<%= render "form", patient: @patient %>
+
+<br>
+
+<div>
+ <%= link_to 'Show', receptionist_patient_path(@patient) %> |
+<%= link_to 'Back', receptionist_patients_path %>
+</div>

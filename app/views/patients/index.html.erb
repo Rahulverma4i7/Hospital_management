@@ -1,0 +1,29 @@
+<h1>Patients</h1>
+<%= link_to 'New Patient', new_receptionist_patient_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>DOB</th>
+      <th>Gender</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.full_name %></td>
+        <td><%= patient.dob %></td>
+        <td><%= patient.gender %></td>
+        <td><%= patient.phone %></td>
+        <td>
+          <%= link_to 'Show', receptionist_patient_path(patient) %>
+          <%= link_to 'Edit', edit_receptionist_patient_path(patient) %>
+          <%= link_to 'Delete', receptionist_patient_path(patient), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
