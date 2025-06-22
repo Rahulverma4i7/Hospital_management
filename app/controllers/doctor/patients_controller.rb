@@ -30,7 +30,7 @@ module Doctor
           address: Faker::Address.full_address,
           created_at: Faker::Time.between(from: 30.days.ago, to: Time.now)
         )
-    end
+    end ##
 
       redirect_to doctor_patients_path,
         notice: "Successfully generated 30 sample patient records"
