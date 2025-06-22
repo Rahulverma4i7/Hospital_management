@@ -1,6 +1,6 @@
 # To run this locally:
 
-- Clone the repo: git clone https://github.* com/Rahulverma4i7/Hospital_management
+- Clone the repo: git clone https://github.com/Rahulverma4i7/Hospital_management
 
 - Run bundle install
 
