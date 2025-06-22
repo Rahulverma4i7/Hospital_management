@@ -1,9 +1,23 @@
 <div class="container">
-  <h1>Doctor Dashboard</h1>
-  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Doctor Dashboard</h1>
+    <%= link_to 'View Full Trends', doctor_patient_trends_path, class: 'btn btn-primary' %>
+  </div>
+
+  <%= line_chart @patient_data,
+        xtitle: "Date",
+        ytitle: "Number of Patients",
+        colors: ["#4CAF50"],
+        library: {
+          backgroundColor: "#f8f9fa",
+          hAxis: { title: "Date" },
+          vAxis: { title: "Patients" }
+        }
+  %>
+
+  <h2>All Patients</h2>
   <div class="row">
     <div class="col-md-8">
-      <h3>Patients</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -30,9 +44,9 @@
       </table>
     </div>
     
-    <div class="col-md-4">
+    <%# <div class="col-md-4">
       <h3>Patient Registration Trends</h3>
-      <%= line_chart @patient_data, xtitle: "Date", ytitle: "Patients Registered" %>
-    </div>
+      <%= line_chart @patient_trends, xtitle: "Date", ytitle: "Patients Registered", label: "Patients" %>
+    <%# </div>  %>
   </div>
 </div>

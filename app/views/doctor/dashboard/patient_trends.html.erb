@@ -1,0 +1,62 @@
+<h1>Patient Registration Trends (Last 30 Days)</h1>
+
+<!-- Debug Container -->
+<div class="card mb-4">
+  <div class="card-body">
+    <h5>Chart Data</h5>
+    <pre><%= @patient_data.inspect %></pre>
+  </div>
+</div>
+
+<!-- Chart Container (with explicit size) -->
+<div id="chart-container" style="height: 500px; width: 100%; border: 1px solid red;">
+  <!-- This empty div is intentional for testing -->
+</div>
+
+<!-- Manual Chart Initialization -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing chart...');
+    
+    // 1. Verify Google Charts is loaded
+    if (typeof google === 'undefined') {
+      console.error('Google Charts not loaded');
+      return;
+    }
+    
+    // 2. Load the visualization API
+    google.charts.load('current', {'packages':['corechart']});
+    
+    // 3. Set callback when packages are loaded
+    google.charts.setOnLoadCallback(function() {
+      console.log('Google Charts loaded, drawing chart...');
+      
+      // 4. Format the data
+      const data = new google.visualization.DataTable();
+      data.addColumn('string', 'Date');
+      data.addColumn('number', 'Patients');
+      
+      data.addRows([
+        <% @patient_data.each do |date, count| %>
+          ['<%= date.strftime("%b %d") %>', <%= count %>],
+        <% end %>
+      ]);
+      
+      // 5. Create and draw the chart
+      const chart = new google.visualization.LineChart(
+        document.getElementById('chart-container')
+      );
+      
+      chart.draw(data, {
+        title: 'Patient Registrations',
+        curveType: 'function',
+        legend: { position: 'bottom' },
+        hAxis: { title: 'Date' },
+        vAxis: { title: 'Patients' },
+        backgroundColor: '#f9f9f9'
+      });
+    });
+  });
+</script>
+
+<%= link_to 'Back to Dashboard', doctor_root_path, class: 'btn btn-secondary mt-3' %>

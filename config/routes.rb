@@ -10,20 +10,20 @@ Rails.application.routes.draw do
     root to: "receptionist/dashboard#index", as: :receptionist_root
   end
 
-  root to: "home#index"
-  # root to: 'devise/sessions#new'
+  unauthenticated do
+    root to: "home#index"
+  end
 
   namespace :doctor do
-  root to: "dashboard#index", as: :dashboard # This creates doctor_dashboard_path
-  resources :patients, only: [ :index, :show ] do
-    collection do
-      post :create_sample_data
+    get "patient_trends", to: "dashboard#patient_trends"
+    resources :patients, only: [ :index, :show ] do
+      collection do
+        post :create_sample_data
+      end
     end
-  end
   end
 
   namespace :receptionist do
-  root to: "dashboard#index", as: :dashboard # This creates receptionist_dashboard_path
-  resources :patients
+    resources :patients
   end
 end

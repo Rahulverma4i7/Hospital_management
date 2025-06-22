@@ -6,6 +6,13 @@ class Doctor::DashboardController < ApplicationController
     @patients = Patient.all
     @patient_data = Patient.group_by_day(:created_at).count
   end
+  def patient_trends
+  @patient_data = Patient.where("created_at >= ?", 30.days.ago)
+                        .group_by_day(:created_at)
+                        .count
+  # For debugging - check what data is being generated
+  puts "Patient trends data: #{@patient_data.inspect}"
+  end
 
   private
 
