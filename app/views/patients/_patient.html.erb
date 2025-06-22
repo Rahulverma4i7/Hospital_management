@@ -1,32 +1,61 @@
-<div id="<%= dom_id patient %>">
-  <p>
-    <strong>First name:</strong>
-    <%= patient.first_name %>
-  </p>
+<div id="<%= dom_id patient %>" class="card shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h5 class="card-title mb-0">Patient Details</h5>
+  </div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <span class="badge bg-light text-dark me-2">First Name</span>
+          <span class="fs-5"><%= patient.first_name %></span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <span class="badge bg-light text-dark me-2">Last Name</span>
+          <span class="fs-5"><%= patient.last_name %></span>
+        </div>
+      </div>
+    </div>
 
-  <p>
-    <strong>Last name:</strong>
-    <%= patient.last_name %>
-  </p>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <span class="badge bg-light text-dark me-2">Date of Birth</span>
+          <span class="fs-5"><%= patient.dob %></span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <span class="badge bg-light text-dark me-2">Gender</span>
+          <span class="fs-5"><%= patient.gender %></span>
+        </div>
+      </div>
+    </div>
 
-  <p>
-    <strong>Dob:</strong>
-    <%= patient.dob %>
-  </p>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <span class="badge bg-light text-dark me-2">Phone</span>
+          <span class="fs-5"><%= patient.phone %></span>
+        </div>
+      </div>
+    </div>
 
-  <p>
-    <strong>Gender:</strong>
-    <%= patient.gender %>
-  </p>
-
-  <p>
-    <strong>Phone:</strong>
-    <%= patient.phone %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= patient.address %>
-  </p>
-
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-start mb-2">
+          <span class="badge bg-light text-dark me-2 mt-1">Address</span>
+          <span class="fs-5"><%= patient.address %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <% if action_name != "show" %>
+    <div class="card-footer bg-light">
+      <%= link_to "View Details", patient, class: "btn btn-outline-primary me-2" %>
+      <%= link_to "Edit", edit_patient_path(patient), class: "btn btn-outline-secondary" %>
+    </div>
+  <% end %>
 </div>

@@ -1,24 +1,11 @@
-# README
+# To run this locally:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Clone the repo: git clone https://github.* com/Rahulverma4i7/Hospital_management
 
-Things you may want to cover:
+- Run bundle install
 
-* Ruby version
+- Create and migrate the database: rails db:create db:migrate
 
-* System dependencies
+- Start the server: rails server
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Visit http://localhost:3000

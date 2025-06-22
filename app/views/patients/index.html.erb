@@ -1,29 +1,67 @@
-<h1>Patients</h1>
-<%= link_to 'New Patient', new_receptionist_patient_path %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>DOB</th>
-      <th>Gender</th>
-      <th>Phone</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @patients.each do |patient| %>
-      <tr>
-        <td><%= patient.full_name %></td>
-        <td><%= patient.dob %></td>
-        <td><%= patient.gender %></td>
-        <td><%= patient.phone %></td>
-        <td>
-          <%= link_to 'Show', receptionist_patient_path(patient) %>
-          <%= link_to 'Edit', edit_receptionist_patient_path(patient) %>
-          <%= link_to 'Delete', receptionist_patient_path(patient), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
+<div class="container-fluid px-4 py-4" style="background-color: #f8f9fa; min-height: 100vh;">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-5 fw-bold" style="color: #2b7a78;">
+      <i class="bi bi-people-fill me-2"></i>Patient Registry
+    </h1>
+    <%= link_to new_receptionist_patient_path, class: "btn btn-success", style: "background-color: #3aafa9; border: none;" do %>
+      <i class="bi bi-plus-lg me-1"></i> New Patient
     <% end %>
-  </tbody>
-</table>
+  </div>
+
+  <div class="card shadow-sm" style="border-radius: 10px; border: none;">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead style="background-color: #2b7a78; color: white;">
+            <tr>
+              <th class="ps-4">Patient Name</th>
+              <th>Date of Birth</th>
+              <th>Gender</th>
+              <th>Contact</th>
+              <th class="text-end pe-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @patients.each do |patient| %>
+              <tr style="background-color: white; border-bottom: 1px solid #e9ecef;">
+                <td class="ps-4 fw-semibold">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar-sm me-3">
+                      <span class="avatar-title rounded-circle" style="background-color: #def2f1; color: #2b7a78;">
+                        <%= patient.first_name[0].upcase %><%= patient.last_name[0].upcase %>
+                      </span>
+                    </div>
+                    <div>
+                      <span style="color: #17252a;"><%= patient.full_name %></span>
+                      <div class="text-muted small"><%= patient.address&.truncate(30) %></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="color: #17252a;"><%= patient.dob.strftime("%b %d, %Y") if patient.dob %></td>
+                <td>
+                  <span class="badge" style="background-color: <%= patient.gender.downcase == 'male' ? '#2b7a78' : '#d65db1' %>;">
+                    <%= patient.gender %>
+                  </span>
+                </td>
+                <td style="color: #17252a;"><%= patient.phone %></td>
+                <td class="text-end pe-4">
+                  <div class="btn-group" role="group">
+                    <%= link_to receptionist_patient_path(patient), class: "btn btn-sm", style: "background-color: #def2f1; color: #2b7a78; border: 1px solid #2b7a78;" do %>
+                      <i class="bi bi-eye"></i>
+                    <% end %>
+                    <%= link_to edit_receptionist_patient_path(patient), class: "btn btn-sm", style: "background-color: #feffff; color: #2b7a78; border: 1px solid #2b7a78;" do %>
+                      <i class="bi bi-pencil"></i>
+                    <% end %>
+                    <%= link_to receptionist_patient_path(patient), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm", style: "background-color: #feffff; color: #d65db1; border: 1px solid #d65db1;" do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
