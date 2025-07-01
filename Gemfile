@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 gem 'devise'
 gem 'chartkick'
-gem 'faker', '~> 3.2'
+gem 'faker', '~> 3.5'
 gem 'groupdate'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
